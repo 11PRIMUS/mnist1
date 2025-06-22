@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
-# App title and description
-st.title("Handwritten Digit Generator")
+
+st.title("MNIST Digit Generator")
 st.markdown("""
 **Generate synthetic handwritten digits** similar to the MNIST dataset.  
 Select a digit (0-9) and the app will create 5 variations.
@@ -67,7 +67,7 @@ if st.button("Generate Images"):
     # Create 5 images
     images = [generate_digit_image(digit) for _ in range(5)]
     
-    # Display in a grid
+    
     cols = st.columns(5)
     for i, img in enumerate(images):
         with cols[i]:
