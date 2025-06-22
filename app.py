@@ -1,28 +1,27 @@
 import streamlit as st
 import numpy as np
-import random
-import tensorflow as tf
 import matplotlib.pyplot as plt
+import random
 
-
-st.title("MNIST Digit Generator")
+# App title and description
+st.title("Handwritten Digit Generator")
 st.markdown("""
 **Generate synthetic handwritten digits** similar to the MNIST dataset.  
 Select a digit (0-9) and the app will create 5 variations.
 """)
 
-
+# Digit selection
 digit = st.slider("Select a digit:", 0, 9, 0)
 
-#mnist data
-(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
-
-
+# Function to generate synthetic digit images
 def generate_digit_image(digit):
+    # Create 28x28 canvas (MNIST dimensions)
     img = np.zeros((28, 28))
     
+    # Add random noise background
     img += np.random.rand(28, 28) * 0.3
     
+    # Digit-specific patterns (simplified representations)
     patterns = {
         0: [(7,7), (7,20), (20,20), (20,7), (7,7)],
         1: [(10,5), (10,22)],
@@ -77,16 +76,3 @@ if st.button("Generate Images"):
             plt.axis('off')
             st.pyplot(plt.gcf(), use_container_width=True)
             plt.clf()
-
-image_index = 0
-image = x_train[image_index]
-label = y_train[image_index]
-
-# Print the label of the image
-st.write(f"The label for this image is: {label}")
-
-# Display the image
-plt.imshow(image, cmap='gray')
-plt.title(f"Label: {label}")
-plt.axis('off')  # Hide the axes for a cleaner look
-plt.show()
