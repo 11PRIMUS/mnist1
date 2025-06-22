@@ -2,4 +2,4 @@ streamlit
 matplotlib
 numpy
 pandas
-tensorflow-cpu
+scikit-learn

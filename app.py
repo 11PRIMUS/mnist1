@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
-import tensorflow as tf
+from sklearn.datasets import fetch_openml
 import random
 
 
@@ -14,12 +14,13 @@ Select a digit (0-9) and the app will show 5 random examples.
 #add digit to view
 digit = st.slider("Select a digit:", 0, 9, 0)
 
-@st.cache_data
 def load_mnist_data():
-    (x_train, y_train), (_, _) = tf.keras.datasets.mnist.load_data()
-    #normalize images to [0, 1] range
-    x_train = x_train / 255.0
-    return x_train, y_train
+    mnist = fetch_openml('mnist_784', version=1)
+    X = mnist.data.reshape(-1, 28, 28) / 255.0
+    y = mnist.target.astype(int)
+    return X, y
+
+
 
 #gen image
 if st.button("Show Images"):
